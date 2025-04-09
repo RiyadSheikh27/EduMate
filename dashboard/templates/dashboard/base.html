@@ -70,8 +70,16 @@
   </header>
   <br /><br />
   <main>
+     
+{% comment %} Displaying Success Message {% endcomment %}
+    {% if messages %}
+      {% for msg in messages %}
+        <div class="alert alert-{{msg.tags}}">{{msg}}</div>
+      {% endfor %}
+    {% endif %}
 
     {% block content %}
+
     {% endblock content %}
 
   </main>

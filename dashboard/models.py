@@ -10,7 +10,7 @@ class Notes(models.Model):
     def __str__(self):
         return self.title
 
-    # Removing double plural form
+    # Removing double plural form in Admin
     class Meta:
         verbose_name = "notes"
         verbose_name_plural = "notes"
