@@ -27,7 +27,7 @@
                 <td>{{homework.due}}</td>
 {% comment %} Checking either Completed or Not {% endcomment %}
                 <td>
-                    <a href="#">
+                    <a href="{% url 'update-homework' homework.id %}">
                         <div class="form-check">
                             {% if homework.is_finished == True %}
                             <input class="form-check-input" type="checkbox" value="" checked>
