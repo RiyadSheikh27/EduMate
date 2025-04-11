@@ -3,6 +3,7 @@
 {% load crispy_forms_tags %}
 {% block content %}
 
+{% comment %} Displaing notes {% endcomment %}
 <div class="container">
     <div class="row">
         {% for note in notes %}
@@ -23,6 +24,7 @@
     </div>
 </div>
 <br><br>
+{% comment %} Taking input through form {% endcomment %}
 <div class="container">
     <form method="POST">
         {% csrf_token %}
