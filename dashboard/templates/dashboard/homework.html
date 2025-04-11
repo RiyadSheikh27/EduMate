@@ -40,7 +40,7 @@
                         </div>
                     </a>
                 </td>
-                <td><a href="#"><i class="fa fa-trash fa-2x"></i></a></td>
+                <td><a href="{% url 'delete-homework' homework.id %}"><i class="fa fa-trash fa-2x"></i></a></td>
             </tr>
             {% endfor %}
         </tbody>
