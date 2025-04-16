@@ -21,3 +21,9 @@ class HomeworkForm(forms.ModelForm):
 # Creating form for Youtube
 class DashboardForm(forms.Form):
     text = forms.CharField(max_length=100,label="Enter Your Search: ")
+
+# Creating form for To-Do
+class TodoForm(forms.ModelForm):
+    class Meta:
+        model = Todo
+        fields = ['title','is_finished']
