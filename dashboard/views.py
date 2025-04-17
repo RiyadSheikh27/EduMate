@@ -3,7 +3,7 @@ from .forms import *
 from django.contrib import messages
 from django.views import generic
 from youtubesearchpython import VideosSearch
-
+import requests
 
 # Creating views for home and notes section
 def home(request):
@@ -175,4 +175,32 @@ def delete_todo(request,pk=None):
 
 ## Creating views for Books section
 def books(request):
-    return render(request."dashboard/books.html")
+    if request.method == "POST":
+        form = DashboardForm(request.POST)
+        text = request.POST["text"]
+        url = "https://www.googleapis.com/books/v1/volumes?q=" + text
+        r = requests.get(url)
+        answer = r.json()
+
+        result_list = []
+        for i in range(10):
+            item = answer["items"][i]['volumeInfo']
+            result_dict = {
+                "title": item.get('title'),
+                "subtitle": item.get('subtitle'),
+                "description": item.get('description'),
+                "count": item.get('pageCount'),
+                "categories": item.get('categories'),
+                "rating": item.get('averageRating'),
+                "thumbnail": item.get('imageLinks', {}).get('thumbnail'),
+                "preview": item.get('previewLink'),
+            }
+            result_list.append(result_dict)
+
+        context = {"form": form, "results": result_list}
+        return render(request, "dashboard/books.html", context)
+    else:
+        form = DashboardForm()
+        context = {"form": form}
+        return render(request, "dashboard/books.html", context)
+

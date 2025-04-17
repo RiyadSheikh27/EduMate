@@ -13,5 +13,6 @@ urlpatterns = [
     path("todo", views.todo, name="todo"),
     path("update_todo/<int:pk>", views.update_todo, name="update-todo"),
     path("delete_todo/<int:pk>", views.delete_todo, name="delete-todo"),
+    path("books", views.books, name="books"),
 
 ]
