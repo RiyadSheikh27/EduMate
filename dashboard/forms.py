@@ -27,3 +27,10 @@ class TodoForm(forms.ModelForm):
     class Meta:
         model = Todo
         fields = ['title','is_finished']
+
+# # Creating form for Dictionary
+# class DashboardForm(forms.Form):
+#     text = forms.CharField(label='', widget=forms.TextInput(attrs={
+#         'class': 'form-control',
+#         'placeholder': 'Enter an English word'
+#     }))

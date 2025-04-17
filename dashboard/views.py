@@ -5,6 +5,7 @@ from django.views import generic
 from youtubesearchpython import VideosSearch
 import requests
 
+
 # Creating views for home and notes section
 def home(request):
     return render(request, "dashboard/home.html")
@@ -158,6 +159,7 @@ def todo(request):
     context = {"form": form, "todos": todo, "todos_done": todos_done}
     return render(request, "dashboard/todo.html", context)
 
+
 # Updating To-Do through checkbox
 def update_todo(request, pk=None):
     todo = Todo.objects.get(id=pk)
@@ -166,12 +168,14 @@ def update_todo(request, pk=None):
     else:
         todo.is_finished = True
     todo.save()
-    return redirect('todo')
+    return redirect("todo")
+
 
 # Deleting To-Do
-def delete_todo(request,pk=None):
+def delete_todo(request, pk=None):
     Todo.objects.get(id=pk).delete()
     return redirect("todo")
+
 
 ## Creating views for Books section
 def books(request):
@@ -184,16 +188,16 @@ def books(request):
 
         result_list = []
         for i in range(10):
-            item = answer["items"][i]['volumeInfo']
+            item = answer["items"][i]["volumeInfo"]
             result_dict = {
-                "title": item.get('title'),
-                "subtitle": item.get('subtitle'),
-                "description": item.get('description'),
-                "count": item.get('pageCount'),
-                "categories": item.get('categories'),
-                "rating": item.get('averageRating'),
-                "thumbnail": item.get('imageLinks', {}).get('thumbnail'),
-                "preview": item.get('previewLink'),
+                "title": item.get("title"),
+                "subtitle": item.get("subtitle"),
+                "description": item.get("description"),
+                "count": item.get("pageCount"),
+                "categories": item.get("categories"),
+                "rating": item.get("averageRating"),
+                "thumbnail": item.get("imageLinks", {}).get("thumbnail"),
+                "preview": item.get("previewLink"),
             }
             result_list.append(result_dict)
 
@@ -204,3 +208,40 @@ def books(request):
         context = {"form": form}
         return render(request, "dashboard/books.html", context)
 
+
+# Creating views for Homework section
+def dictionary(request):
+    if request.method == "POST":
+        form = DashboardForm(request.POST)
+        text = request.POST["text"]
+        url = "https://api.dictionaryapi.dev/api/v2/entries/en_US/" + text
+        r = requests.get(url)
+        
+        try:
+            answer = r.json()
+            
+            phonetics = answer[0]["phonetics"][0].get("text", "")
+            audio = answer[0]["phonetics"][0].get("audio", "")
+            meaning = answer[0]["meanings"][0]["definitions"][0]
+            definition = meaning.get("definition", "")
+            example = meaning.get("example", "")
+            synonyms = answer[0]["meanings"][0]["definitions"][0].get("synonyms", [])
+            
+            context = {
+                "form": form,
+                "input": text,
+                "phonetics": phonetics,
+                "audio": audio,
+                "definition": definition,
+                "example": example,
+                "synonyms": synonyms
+            }
+        except Exception as e:
+            print("Error:", e)
+            context = {"form": form, "input": "", "error": "Could not fetch data. Please try again."}
+        
+        return render(request, "dashboard/dictionary.html", context)
+    else:
+        form = DashboardForm()
+        context = {"form": form}
+        return render(request, "dashboard/dictionary.html", context)
