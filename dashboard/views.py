@@ -157,3 +157,22 @@ def todo(request):
         todos_done = False
     context = {"form": form, "todos": todo, "todos_done": todos_done}
     return render(request, "dashboard/todo.html", context)
+
+# Updating To-Do through checkbox
+def update_todo(request, pk=None):
+    todo = Todo.objects.get(id=pk)
+    if todo.is_finished:
+        todo.is_finished = False
+    else:
+        todo.is_finished = True
+    todo.save()
+    return redirect('todo')
+
+# Deleting To-Do
+def delete_todo(request,pk=None):
+    Todo.objects.get(id=pk).delete()
+    return redirect("todo")
+
+## Creating views for Books section
+def books(request):
+    return render(request."dashboard/books.html")
