@@ -6,7 +6,8 @@
     <p>Enter any word to get the phonetics, definition and an example for the word</p>
     <form action="" method="post">
         {% csrf_token %}
-        {{form}}
+        Enter Your Search: 
+        {{form.text}}
         <input class="btn btn-danger" type="submit" value="Submit">
     </form><br>
     <div class="content-section p-0 mt-5">
