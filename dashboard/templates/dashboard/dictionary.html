@@ -27,10 +27,8 @@
             <h4>Definition: {{definition}}</h4>
             <h4>Example: {{example}}</h4>
         </p>
-        Synonyms:
-        {% comment %} {% for synonym in synonyms %}
-            {{ synonym }}
-        {% endfor %} {% endcomment %}
+        {% comment %} Synonyms:
+            {{ synonym }} {% endcomment %}
         <hr>
     </div>
     {% else %}

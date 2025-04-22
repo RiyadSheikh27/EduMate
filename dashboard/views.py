@@ -4,6 +4,7 @@ from django.contrib import messages
 from django.views import generic
 from youtubesearchpython import VideosSearch
 import requests
+import wikipedia
 
 
 # Creating views for home and notes section
@@ -216,17 +217,17 @@ def dictionary(request):
         text = request.POST["text"]
         url = "https://api.dictionaryapi.dev/api/v2/entries/en_US/" + text
         r = requests.get(url)
-        
+
         try:
             answer = r.json()
-            
+
             phonetics = answer[0]["phonetics"][0].get("text", "")
             audio = answer[0]["phonetics"][0].get("audio", "")
             meaning = answer[0]["meanings"][0]["definitions"][0]
             definition = meaning.get("definition", "")
             example = meaning.get("example", "")
             synonyms = answer[0]["meanings"][0]["definitions"][0].get("synonyms", [])
-            
+
             context = {
                 "form": form,
                 "input": text,
@@ -234,14 +235,37 @@ def dictionary(request):
                 "audio": audio,
                 "definition": definition,
                 "example": example,
-                "synonyms": synonyms
+                "synonyms": synonyms,
             }
         except Exception as e:
             print("Error:", e)
-            context = {"form": form, "input": "", "error": "Could not fetch data. Please try again."}
-        
+            context = {
+                "form": form,
+                "input": "",
+                "error": "Could not fetch data. Please try again.",
+            }
+
         return render(request, "dashboard/dictionary.html", context)
     else:
         form = DashboardForm()
         context = {"form": form}
         return render(request, "dashboard/dictionary.html", context)
+
+
+# Creating views for Wikipedia section
+def wiki(request):
+    if request.method == "POST":
+        text = request.POST["text"]
+        form = DashboardForm(request.POST)
+        search = wikipedia.page(text)
+        context = {
+            "form": form,
+            "title": search.title,
+            "link": search.url,
+            "details": search.summary,
+        }
+        return render(request, "dashboard/wiki.html", context)
+    else:
+        form = DashboardForm()
+        context = {"form": form}
+    return render(request, "dashboard/wiki.html", context)
