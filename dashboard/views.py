@@ -269,3 +269,89 @@ def wiki(request):
         form = DashboardForm()
         context = {"form": form}
     return render(request, "dashboard/wiki.html", context)
+
+# Creating views for Conversion section
+def conversion(request):
+    context = {}
+    if request.method == "POST":
+        form = ConversionForm(request.POST)
+        if 'select' in request.POST and form.is_valid():
+            measurement_type = form.cleaned_data['measurement']
+            if measurement_type == 'length':
+                measurement_form = ConversionLengthForm()
+            else:
+                measurement_form = ConversionMassForm()
+            context = {
+                'form': form,
+                'm_form': measurement_form,
+                'input': True
+            }
+
+        elif 'convert' in request.POST:
+            measurement_type = request.POST.get('measurement')
+            form = ConversionForm(initial={'measurement': measurement_type})
+            answer = ''
+            
+            if measurement_type == 'length':
+                measurement_form = ConversionLengthForm(request.POST)
+                if measurement_form.is_valid():
+                    first = measurement_form.cleaned_data['measure1']
+                    second = measurement_form.cleaned_data['measure2']
+                    input_val = measurement_form.cleaned_data['input']
+                    if input_val and float(input_val) >= 0:
+                        input_val = float(input_val)
+                        if first == 'yard' and second == 'foot':
+                            answer = f"{input_val} yard = {input_val * 3} foot"
+                        elif first == 'foot' and second == 'yard':
+                            answer = f"{input_val} foot = {input_val / 3} yard"
+                        else:
+                            answer = "Same unit conversion."
+            else:
+                measurement_form = ConversionMassForm(request.POST)
+                if measurement_form.is_valid():
+                    first = measurement_form.cleaned_data['measure1']
+                    second = measurement_form.cleaned_data['measure2']
+                    input_val = measurement_form.cleaned_data['input']
+                    if input_val and float(input_val) >= 0:
+                        input_val = float(input_val)
+                        if first == 'pound' and second == 'kilogram':
+                            answer = f"{input_val} pound = {input_val * 0.453592} kilogram"
+                        elif first == 'kilogram' and second == 'pound':
+                            answer = f"{input_val} kilogram = {input_val / 0.453592} pound"
+                        else:
+                            answer = "Same unit conversion."
+
+            context = {
+                'form': form,
+                'm_form': measurement_form,
+                'input': True,
+                'answer': answer
+            }
+
+    else:
+        form = ConversionForm()
+        context = {
+            'form': form,
+            'input': False
+        }
+
+    return render(request, "dashboard/conversion.html", context)
+
+# Creating views for User Registration
+def register(request):
+    if request.method == 'POST':
+        form = UserRegistrationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
+            messages.success(request, f"Account created for {username}!")
+            return redirect("login")
+    else:
+        form = UserRegistrationForm()
+
+    context = {
+        'form': form
+    }
+    return render(request, "dashboard/register.html", context)
+
+# Creating views for Profile

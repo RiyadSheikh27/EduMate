@@ -1,6 +1,7 @@
 from django import forms
 from django.forms import widgets, DateInput
 from . models import *
+from django.contrib.auth.forms import UserCreationForm
 
 # Creating form for Notes
 class NotesForm(forms.ModelForm):
@@ -28,9 +29,56 @@ class TodoForm(forms.ModelForm):
         model = Todo
         fields = ['title','is_finished']
 
-# # Creating form for Dictionary
+# Creating form for Dictionary
 # class DashboardForm(forms.Form):
 #     text = forms.CharField(label='', widget=forms.TextInput(attrs={
 #         'class': 'form-control',
 #         'placeholder': 'Enter an English word'
 #     }))
+
+# Creating form for Conversion
+class ConversionForm(forms.Form):
+    CHOICES = [('length', 'Length'), ('mass', 'Mass')]
+    measurement = forms.ChoiceField(choices=CHOICES, widget=forms.RadioSelect)
+
+
+class ConversionMassForm(forms.Form):
+    CHOICES = [('pound', 'Pound'), ('kilogram', 'Kilogram')]
+    
+    input = forms.CharField(
+        required=False, label=False,
+        widget=forms.TextInput(attrs={
+            'type': 'number',
+            'placeholder': 'Enter the number'
+        })
+    )
+    measure1 = forms.CharField(
+        label='', widget=forms.Select(choices=CHOICES)
+    )
+    measure2 = forms.CharField(
+        label='', widget=forms.Select(choices=CHOICES)
+    )
+
+
+class ConversionLengthForm(forms.Form):
+    CHOICES = [('yard', 'Yard'), ('foot', 'Foot')]
+
+    input = forms.CharField(
+        required=False, label=False,
+        widget=forms.TextInput(attrs={
+            'type': 'number',
+            'placeholder': 'Enter the number'
+        })
+    )
+    measure1 = forms.CharField(
+        label='', widget=forms.Select(choices=CHOICES)
+    )
+    measure2 = forms.CharField(
+        label='', widget=forms.Select(choices=CHOICES)
+    )
+
+# Creating form for User Registration
+class UserRegistrationForm(UserCreationForm):
+    class Meta:
+        model = User
+        fields = ['username','password1','password2']
