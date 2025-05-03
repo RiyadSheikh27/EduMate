@@ -7,20 +7,84 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-  <title>Student-dashboard</title>
+  <title>EduMate - Student Study Portal</title>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
     integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous" />
   <link rel="stylesheet" href="{% static 'css/main.css' %}" />
+  <style>
+    /* Custom EduMate Theme */
+    .navbar.bg-primary {
+      background-color: #2460c1 !important;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+    }
+    .navbar-brand {
+      font-weight: 700;
+      font-size: 1.8rem;
+      display: flex;
+      align-items: center;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    .navbar-brand img {
+      height: 50px;
+      margin-right: 12px;
+    }
+    .navbar-nav .nav-link {
+      font-size: 1.3rem;
+      padding: 0.5rem 1rem;
+      font-weight: 500;
+    }
+    .dropdown-menu {
+      font-size: 1rem;
+      min-width: 200px;
+    }
+    .navbar-toggler {
+      transform: scale(1.2);
+      margin-right: 10px;
+    }
+    .welcome-header {
+      font-size: 2.2rem;
+      font-weight: 600;
+      color: #2c3e50;
+      margin: 1.5rem 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    .card-title {
+      font-weight: 600;
+      color: #2460c1;
+    }
+    /* Wider layout styles */
+    .container-fluid {
+      max-width: 98%;
+      padding: 0 30px;
+    }
+    .col-md-3 {
+      padding: 0 15px;
+    }
+    .card {
+      width: 100%;
+      max-width: 100%;
+      transition: transform 0.2s;
+      margin-bottom: 20px;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+  </style>
 </head>
 
 <body>
   <header>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
       <div class="container-fluid">
-        <a class="navbar-brand" href="{% url 'home' %}">Student Study Portal</a>        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+        <a class="navbar-brand" href="{% url 'home' %}">
+          <img src="{% static 'images/logo.png' %}" alt="EduMate Logo">
+          EduMate - Student Study Portal
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
           aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -39,22 +103,26 @@
                 Options
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="{% url 'books' %}">Books</a>
-                <a class="dropdown-item" href="{% url 'wiki' %}">Wikipedia</a>
+                <h6 class="dropdown-header">Study Resources</h6>
+                <a class="dropdown-item" href="{% url 'books' %}"><i class="fas fa-book mr-2"></i>Books</a>
+                <a class="dropdown-item" href="{% url 'wiki' %}"><i class="fab fa-wikipedia-w mr-2"></i>Wikipedia</a>
+                <a class="dropdown-item" href="{% url 'dictionary' %}"><i class="fas fa-book-open mr-2"></i>Dictionary</a>
+                
                 <div class="dropdown-divider"></div>
-
-                <a class="dropdown-item" href="{% url 'dictionary' %}">Dictionary</a>
-                <a class="dropdown-item" href="{% url 'youtube' %}">Youtube</a>
+                <h6 class="dropdown-header">Multimedia</h6>
+                <a class="dropdown-item" href="{% url 'youtube' %}"><i class="fab fa-youtube mr-2"></i>YouTube</a>
+                
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="{% url 'todo' %}">To-do</a>
-                <a class="dropdown-item" href="{% url 'homework' %}">Homework</a>
+                <h6 class="dropdown-header">Task Management</h6>
+                <a class="dropdown-item" href="{% url 'todo' %}"><i class="fas fa-tasks mr-2"></i>To-Do</a>
+                <a class="dropdown-item" href="{% url 'homework' %}"><i class="fas fa-book-reader mr-2"></i>Homework</a>
+                <a class="dropdown-item" href="{% url 'notes' %}"><i class="fas fa-sticky-note mr-2"></i>Notes</a>
+                
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="{% url 'notes' %}">Notes</a>
-                <a class="dropdown-item" href="{% url 'conversion' %}">Conversion</a>
-                <div class="dropdown-divider"></div>
+                <h6 class="dropdown-header">Tools</h6>
+                <a class="dropdown-item" href="{% url 'conversion' %}"><i class="fas fa-calculator mr-2"></i>Conversion</a>
               </div>
             </li>
-
             <li class="nav-item">
               <a class="nav-link" href="{% url 'logout' %}">Logout</a>
             </li>
@@ -71,21 +139,24 @@
       </div>
     </nav>
   </header>
-  <br /><br />
-  <main>
-     
-{% comment %} Displaying Success Message {% endcomment %}
+
+  <main class="container-fluid">
+    {% comment %} Displaying Success Message {% endcomment %}
     {% if messages %}
       {% for msg in messages %}
-        <div class="alert alert-{{msg.tags}}">{{msg}}</div>
+        <div class="alert alert-{{msg.tags}} alert-dismissible fade show mt-3">
+          {{msg}}
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
       {% endfor %}
     {% endif %}
 
     {% block content %}
-
     {% endblock content %}
-
   </main>
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
     integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
@@ -94,5 +165,4 @@
     integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
   </script>
 </body>
-
 </html>

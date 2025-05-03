@@ -1,128 +1,257 @@
-{% extends 'dashboard/base.html' %} 
-{% load static %} 
+{% extends 'dashboard/base.html' %}
+{% load static %}
 {% block content %}
 
-<section class="container text-center">
-  <h3>Welcome To EduMate</h3>
+<style>
+  .hero-section {
+    background: linear-gradient(135deg, #2460c1 0%, #3a7bd5 100%);
+    color: white;
+    padding: .8rem 1.5rem;
+    border-radius: 12px;
+    margin: 1rem auto;
+    text-align: center;
+    max-width: 1200px;
+  }
+  .hero-title {
+    font-size: 2.8rem;
+    font-weight: 700;
+  }
+  .hero-subtitle {
+    font-size: 1.2rem;
+    max-width: 800px;
+    margin: 0 auto 1.5rem;
+  }
+  .feature-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 1.5rem;
+    margin: 1rem 0;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .feature-card {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    transition: all 0.3s ease;
+  }
+  .feature-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+  }
+  .feature-img-container {
+    height: 150px;
+    overflow: hidden;
+  }
+  .feature-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+  .feature-card:hover .feature-img {
+    transform: scale(1.05);
+  }
+  .feature-content {
+    padding: 1.8rem;
+  }
+  .feature-title {
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 0.8rem;
+    font-size: 1.3rem;
+  }
+  .feature-desc {
+    color: #666;
+    font-size: 0.95rem;
+    margin-bottom: 1.2rem;
+  }
+  .category-title {
+    font-weight: 600;
+    color: #2c3e50;
+    margin: 2.5rem 0 1.5rem;
+    padding-bottom: 0.8rem;
+    border-bottom: 2px solid #eee;
+    font-size: 1.5rem;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .stats-bar {
+    display: flex;
+    justify-content: space-around;
+    background: rgba(255,255,255,0.15);
+    padding: 1.5rem;
+    border-radius: 12px;
+    margin: 2rem auto;
+    max-width: 800px;
+    backdrop-filter: blur(5px);
+  }
+  .stat-item {
+    text-align: center;
+    padding: 0 1.5rem;
+  }
+  .stat-number {
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: white;
+  }
+  .stat-label {
+    color: rgba(255,255,255,0.9);
+    font-size: 0.9rem;
+  }
+  .btn-feature {
+    width: 100%;
+    padding: 0.6rem;
+    font-weight: 500;
+    border-radius: 8px;
+  }
+  .final-cta {
+    max-width: 1200px;
+    margin: 3rem auto;
+    text-align: center;
+  }
+</style>
 
-  <hr> <br>
-  <div class="row">
-    <div class="col-md-3">
-      <a href="{% url 'notes' %}">
-        <div class="card">
-          <img class="card-img-top" src="{% static 'images/notes.jpg' %}" alt="Notes image">
-          <div class="card-body">
-            <h5 class="card-title ">
-              Notes
-            </h5>
-            Create Notes to refer them later. They are stored permanently until deleted
-          </div>
-        </div>
-      </a>
-    </div>
-
-    <div class="col-md-3">
-      <a href="{% url 'homework' %}">
-        <div class="card">
-          <img class="card-img-top" src="{% static 'images/homework.jpg' %}" alt="Notes image">
-          <div class="card-body">
-            <h5 class="card-title ">
-              Homework
-            </h5>
-            Add homeworks and assign them deadlines. They will be displayed prioritised by deadlines
-          </div>
-        </div>
-      </a>
-    </div>
-    <div class="col-md-3">
-      <a href="{% url 'youtube' %}">
-        <div class="card">
-          <img class="card-img-top" src="{% static 'images/youtube.jpg' %}" alt="Notes image">
-          <div class="card-body">
-            <h5 class="card-title ">
-              Youtube
-            </h5>
-            Search Youtube and select your desired video to play it on youtube
-          </div>
-        </div>
-      </a>
-    </div>
-    <div class="col-md-3">
-      <a href="{% url 'todo' %}">
-        <div class="card">
-          <img class="card-img-top" src="{% static 'images/todo.jpg' %}" alt="Notes image">
-          <div class="card-body">
-            <h5 class="card-title ">
-              To Do
-            </h5>
-            Add your to-do lists for your day and remove them as you finish
-          </div>
-        </div>
-      </a>
+<div class="container-fluid">
+  <!-- Hero Section -->
+  <div class="hero-section">
+    <h1 class="hero-title">Welcome to EduMate</h1>
+    <p class="hero-subtitle">Your all-in-one platform for organized, efficient studying</p>
+    <div class="stats-bar">
+      <div class="stat-item">
+        <div class="stat-number">8+</div>
+        <div class="stat-label">Powerful Tools</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">24/7</div>
+        <div class="stat-label">Access Anywhere</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">100%</div>
+        <div class="stat-label">Study Focus</div>
+      </div>
     </div>
   </div>
-  <br><br><br>
-  <div class="row">
-    <div class="col-md-3 ">
-      <a href="books">
-        <div class="card mt-20">
-          <img class="card-img-top" src="{% static 'images/books.jpg' %}" alt="Notes image">
-          <div class="card-body">
-            <h5 class="card-title ">
-              Books
-            </h5>
-            Browse books from a list of neatly organised book menu
-          </div>
+
+  <!-- Features Grid -->
+  <div>
+    <h3 class="category-title">Study Organization</h3>
+    <div class="feature-grid">
+      <div class="feature-card">
+        <div class="feature-img-container">
+          <img src="{% static 'images/notes.jpg' %}" alt="Digital notes" class="feature-img">
         </div>
-      </a>
+        <div class="feature-content">
+          <h4 class="feature-title">Notes</h4>
+          <p class="feature-desc">Create, organize, and search your study notes with rich formatting options and permanent storage.</p>
+          <a href="{% url 'notes' %}" class="btn btn-primary btn-feature">Start Notetaking</a>
+        </div>
+      </div>
+      
+      <div class="feature-card">
+        <div class="feature-img-container">
+          <img src="{% static 'images/homework.jpg' %}" alt="Homework tracker" class="feature-img">
+        </div>
+        <div class="feature-content">
+          <h4 class="feature-title">Homework</h4>
+          <p class="feature-desc">Track assignments with deadlines, priority levels, and automatic reminders.</p>
+          <a href="{% url 'homework' %}" class="btn btn-primary btn-feature">Manage Homework</a>
+        </div>
+      </div>
+      
+      <div class="feature-card">
+        <div class="feature-img-container">
+          <img src="{% static 'images/todo.jpg' %}" alt="To-do list" class="feature-img">
+        </div>
+        <div class="feature-content">
+          <h4 class="feature-title">To-Do</h4>
+          <p class="feature-desc">Manage daily academic tasks with completion tracking and productivity insights.</p>
+          <a href="{% url 'todo' %}" class="btn btn-primary btn-feature">Create Tasks</a>
+        </div>
+      </div>
     </div>
 
-
-
-    <div class="col-md-3">
-      <a href="{% url 'dictionary' %}">
-        <div class="card">
-          <img class="card-img-top" src="{% static 'images/dictionary.jpg' %}" alt="Notes image">
-          <div class="card-body">
-            <h5 class="card-title ">
-              Dictionary
-            </h5>
-            A vocabulary from a book is troubling you? No problem, enter the word, and the meaning will be displayed
-            almost instantaneously.
-          </div>
+    <h3 class="category-title">Learning Resources</h3>
+    <div class="feature-grid">
+      <div class="feature-card">
+        <div class="feature-img-container">
+          <img src="{% static 'images/books.jpg' %}" alt="Digital library" class="feature-img">
         </div>
-      </a>
+        <div class="feature-content">
+          <h4 class="feature-title">Books</h4>
+          <p class="feature-desc">Access a curated collection of academic books organized by subject and difficulty.</p>
+          <a href="books" class="btn btn-primary btn-feature">Browse Books</a>
+        </div>
+      </div>
+      
+      <div class="feature-card">
+        <div class="feature-img-container">
+          <img src="{% static 'images/dictionary.jpg' %}" alt="Dictionary" class="feature-img">
+        </div>
+        <div class="feature-content">
+          <h4 class="feature-title">Dictionary</h4>
+          <p class="feature-desc">Instant definitions, synonyms, and usage examples for any vocabulary.</p>
+          <a href="{% url 'dictionary' %}" class="btn btn-primary btn-feature">Look Up Words</a>
+        </div>
+      </div>
+      
+      <div class="feature-card">
+        <div class="feature-img-container">
+          <img src="{% static 'images/wiki.jpg' %}" alt="Wikipedia" class="feature-img">
+        </div>
+        <div class="feature-content">
+          <h4 class="feature-title">Wikipedia</h4>
+          <p class="feature-desc">Fast access to Wikipedia's knowledge base for research and assignments.</p>
+          <a href="wiki" class="btn btn-primary btn-feature">Search Articles</a>
+        </div>
+      </div>
     </div>
-    <div class="col-md-3">
-      <a href="wiki">
-        <div class="card">
-          <img class="card-img-top" src="{% static 'images/wiki.jpg' %}" alt="Notes image">
-          <div class="card-body">
-            <h5 class="card-title ">
-              WikiPedia
-            </h5>
-            Homework and Assignments? Search wikipedia to get fast results
-          </div>
-        </div>
-      </a>
-    </div>
 
-
-    <div class="col-md-3">
-      <a href="conversion">
-        <div class="card">
-          <img class="card-img-top" src="{% static 'images/conversion.jpg' %}" alt="Notes image">
-          <div class="card-body">
-            <h5 class="card-title ">
-              Conversion
-            </h5>
-            Check out the conversion table, that helps you to convert measurements to more familiar ones of your choice.
-          </div>
+    <h3 class="category-title">Study Tools</h3>
+    <div class="feature-grid">
+      <div class="feature-card">
+        <div class="feature-img-container">
+          <img src="{% static 'images/youtube.jpg' %}" alt="YouTube" class="feature-img">
         </div>
-      </a>
+        <div class="feature-content">
+          <h4 class="feature-title">YouTube</h4>
+          <p class="feature-desc">Educational videos integrated directly into your study workflow.</p>
+          <a href="{% url 'youtube' %}" class="btn btn-primary btn-feature">Watch Videos</a>
+        </div>
+      </div>
+      
+      <div class="feature-card">
+        <div class="feature-img-container">
+          <img src="{% static 'images/conversion.jpg' %}" alt="Unit conversion" class="feature-img">
+        </div>
+        <div class="feature-content">
+          <h4 class="feature-title">Conversion</h4>
+          <p class="feature-desc">Convert between units of measurement for science and engineering.</p>
+          <a href="conversion" class="btn btn-primary btn-feature">Convert Units</a>
+        </div>
+      </div>
+      
+      <div class="feature-card" style="background: #f8f9fa;">
+        <div class="feature-content" style="display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100%;">
+          <div style="font-size: 3rem; margin-bottom: 1rem;">✨</div>
+          <h4 class="feature-title">More Features Coming</h4>
+          <p class="feature-desc">We're constantly expanding our toolkit to support your studies.</p>
+          <button class="btn btn-outline-secondary btn-feature">Suggest a Feature</button>
+        </div>
+      </div>
     </div>
   </div>
 
+  <!-- Final CTA -->
+  <div class="final-cta">
+    <h3 style="font-weight: 600; margin-bottom: 1.5rem;">Ready to Transform Your Study Experience?</h3>
+    <a href="{% url 'notes' %}" class="btn btn-primary btn-lg" style="padding: 0.8rem 2.5rem; font-weight: 500; border-radius: 10px;">
+      Get Started with EduMate
+    </a>
+  </div>
+</div>
 
-</section>
 {% endblock content %}

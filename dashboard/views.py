@@ -8,7 +8,6 @@ import wikipedia
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
 
-
 # Creating views for home and notes section
 def home(request):
     return render(request, "dashboard/home.html")
@@ -20,6 +19,7 @@ def notes(request):
 
 
 # Taking Inputs and Displaying Notes
+@login_required
 def notes(request):
     if request.method == "POST":
         form = NotesForm(request.POST)
@@ -111,7 +111,7 @@ def youtube(request):
     if request.method == "POST":
         form = DashboardForm(request.POST)
         text = request.POST["text"]
-        video = VideosSearch(text, limit=10)
+        video = VideosSearch(text)
         result_list = []
         for i in video.result()["result"]:
             result_dict = {
@@ -384,3 +384,4 @@ def profile(request):
 def logout_view(request):
     logout(request)
     return redirect("home")
+
