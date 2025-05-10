@@ -1,6 +1,6 @@
 {% extends 'dashboard/base.html' %} 
 {% load static %}
-{% comment %} {% load crispy_forms_tags %} {% endcomment %}
+{% load crispy_forms_tags %}
 {% block content %}
 
 {% comment %} Displaing notes {% endcomment %}
@@ -31,7 +31,7 @@
         <fieldset class="form-group">
             <legend class="border-bottom mb-4">Create Notes</legend>
         </fieldset>
-        {% comment %} {{form|crispy}} {% endcomment %}
+        {{form|crispy}}
         <div class="form-group">
             <button href="" class="btn btn-outline-info" type="submit">
                 Create
