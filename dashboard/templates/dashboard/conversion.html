@@ -1,14 +1,14 @@
 {% extends 'dashboard/base.html' %}
 {% load static %}
 {% block content %}
-{% load crispy_forms_tags %}
+{% comment %} {% load crispy_forms_tags %} {% endcomment %}
 
 <div class="container text-center">
     <form method="POST">
         {% csrf_token %}
         <div class="form-group">
             <legend class="border-bottom mb-4">Select Measurement Type</legend>
-            {{ form|crispy }}
+            {% comment %} {{ form|crispy }} {% endcomment %}
             <button name="select" class="btn btn-outline-info" type="submit">
                 Select
             </button>
@@ -19,13 +19,13 @@
             <legend class="border-bottom mb-4">Enter Values to Convert</legend>
             <div class="row">
                 <div class="col-md-4">
-                    {{ m_form.input|as_crispy_field }}
+                    {% comment %} {{ m_form.input|as_crispy_field }} {% endcomment %}
                 </div>
                 <div class="col-md-4">
-                    {{ m_form.measure1|as_crispy_field }}
+                    {% comment %} {{ m_form.measure1|as_crispy_field }} {% endcomment %}
                 </div>
                 <div class="col-md-4">
-                    {{ m_form.measure2|as_crispy_field }}
+                    {% comment %} {{ m_form.measure2|as_crispy_field }} {% endcomment %}
                 </div>
             </div>
         </fieldset>

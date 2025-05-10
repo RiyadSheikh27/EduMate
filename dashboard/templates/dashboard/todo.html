@@ -1,7 +1,7 @@
 {% extends 'dashboard/base.html' %} 
 {% load static %}
 {% block content %}
-{% load crispy_forms_tags %}
+{% comment %} {% load crispy_forms_tags %} {% endcomment %}
 {% comment %} Displaing Todo List {% endcomment %}
 <div class="container">
     {% if not todos_done %}
@@ -50,7 +50,7 @@
         {% csrf_token %}
         <fieldset class="form-group">
             <legend class="border-bottom mb-4">Create Todo</legend>
-            {{form|crispy}}
+            {% comment %} {{form|crispy}} {% endcomment %}
         </fieldset>
         <div class="form-group">
             <button href="" class="btn btn-outline-info" type="submit">
