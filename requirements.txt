@@ -2,5 +2,5 @@ Django==5.1.5
 gunicorn==20.1.0
 psycopg2==2.9.10
 django-crispy-forms==2.3
-django-rest-framework==3.16.0
+djangorestframework==3.16.0
 django-mptt==0.16.0
