@@ -152,13 +152,9 @@ soupsieve==2.6
 split-folders==0.5.1
 sqlparse==0.5.3
 stack-data==0.6.3
-streamlit==1.45.1
 tenacity==9.1.2
 tensorboard==2.18.0
 tensorboard-data-server==0.7.2
-tensorflow==2.18.0
-tensorflow-io-gcs-filesystem==0.31.0
-tensorflow_intel==2.18.0
 termcolor==2.5.0
 terminado==0.18.1
 tflearn==0.5.0
