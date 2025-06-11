@@ -4,3 +4,4 @@ psycopg2==2.9.10
 django-crispy-forms==2.3
 djangorestframework==3.16.0
 django-mptt==0.16.0
+crispy-bootstrap4==2024.1
