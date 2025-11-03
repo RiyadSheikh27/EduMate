@@ -1,0 +1,8 @@
+.env
+.env.local
+.env.*
+*.env
+env/
+venv/
+.venv/
+ENV/
